@@ -1,0 +1,434 @@
+/* AeroPool Stitch Design System Stylesheet */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap');
+
+:root {
+    --primary-navy: #0F2042;
+    --runway-gold: #FFC72C;
+    --runway-gold-hover: #FDB813;
+    --deep-obsidian: #0A192F;
+    --terminal-mist: #F4F7FB;
+    --surface-white: #FFFFFF;
+    --text-primary: #0F172A;
+    --text-muted: #64748B;
+    --sky-blue: #0284C7;
+    --border-soft: #E2E8F0;
+    --success-green: #10B981;
+    --success-bg: #DCFCE7;
+    --card-radius: 16px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--terminal-mist);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px 12px 60px 12px;
+}
+
+/* Mobile App Screen Frame Container */
+.app-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* Header & Branding */
+.app-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.app-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--primary-navy);
+    color: #FFFFFF;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 12px rgba(15, 32, 66, 0.25);
+}
+
+.app-title {
+    font-size: 2.3rem;
+    font-weight: 800;
+    color: var(--sky-blue);
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+    line-height: 1.1;
+}
+
+.app-subtitle {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* White Stitch Cards */
+.ap-card {
+    background: var(--surface-white);
+    border-radius: var(--card-radius);
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 8px 30px rgba(15, 32, 66, 0.04), 0 1px 4px rgba(15, 32, 66, 0.02);
+    border: 1px solid #EEF2F6;
+}
+
+.card-header {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-icon {
+    background: rgba(2, 132, 199, 0.1);
+    color: var(--sky-blue);
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+/* Form Controls */
+.form-group {
+    margin-bottom: 14px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+label {
+    display: block;
+    color: #334155;
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+}
+
+input[type="text"],
+select {
+    width: 100%;
+    padding: 12px 14px;
+    background-color: #F8FAFC;
+    border: 1.5px solid var(--border-soft);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.92rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+input[type="text"]:focus,
+select:focus {
+    border-color: var(--sky-blue);
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1);
+    background-color: #FFFFFF;
+}
+
+/* Tabbed Interface for Scanner */
+.tab-header {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    background: #F1F5F9;
+    padding: 4px;
+    border-radius: 10px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-weight: 700;
+    font-size: 0.85rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tab-btn.active {
+    background: #FFFFFF;
+    color: var(--sky-blue);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Camera Stream Preview */
+.camera-box {
+    position: relative;
+    width: 100%;
+    background: #0F172A;
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+}
+
+video#webcam {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.cam-controls {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.btn-secondary {
+    flex: 1;
+    padding: 10px;
+    background: rgba(2, 132, 199, 0.12);
+    color: var(--sky-blue);
+    border: 1px solid rgba(2, 132, 199, 0.3);
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+/* File Upload Box */
+.file-dropzone {
+    border: 2px dashed #CBD5E1;
+    background: #F8FAFC;
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.file-dropzone:hover {
+    border-color: var(--sky-blue);
+    background: #F0F9FF;
+}
+
+/* Ride Type Toggle (Shared vs Private) */
+.toggle-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.toggle-option {
+    border: 1.5px solid var(--border-soft);
+    background: #F8FAFC;
+    border-radius: 12px;
+    padding: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.toggle-option.selected {
+    border-color: var(--primary-navy);
+    background: rgba(15, 32, 66, 0.05);
+}
+
+.toggle-title {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+}
+
+.toggle-sub {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* Vision Result Banner */
+.vision-banner {
+    background: #F0FDF4;
+    border: 1px solid #86EFAC;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: #166534;
+    font-weight: 600;
+    display: none;
+}
+
+/* Fare Box */
+.fare-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #F8FAFC;
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-top: 12px;
+}
+
+.fare-item {
+    text-align: center;
+}
+
+.fare-label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.fare-amount {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.savings-pill {
+    background: var(--success-bg);
+    color: #15803D;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 100px;
+    border: 1px solid #BBF7D0;
+}
+
+/* Meter Bar */
+.meter-container {
+    margin-top: 10px;
+}
+
+.meter-bar {
+    height: 8px;
+    background: #E2E8F0;
+    border-radius: 100px;
+    overflow: hidden;
+    margin-top: 6px;
+}
+
+.meter-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #10B981 0%, #0284C7 100%);
+    width: 75%;
+    border-radius: 100px;
+}
+
+/* Co-rider Cards */
+.rider-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    background: #F8FAFC;
+    border-radius: 12px;
+    border: 1px solid var(--border-soft);
+    margin-bottom: 8px;
+}
+
+.rider-name {
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.rider-flight {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+.match-badge {
+    background: #E0F2FE;
+    color: var(--sky-blue);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+/* MASSIVE RUNWAY GOLD BUTTON */
+.btn-book {
+    background: linear-gradient(135deg, var(--runway-gold) 0%, #F59E0B 100%);
+    color: var(--text-primary);
+    font-weight: 800;
+    font-size: 1.15rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 100px;
+    padding: 18px 24px;
+    width: 100%;
+    box-shadow: 0 10px 25px -4px rgba(245, 158, 11, 0.45);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    margin-top: 12px;
+}
+
+.btn-book:hover {
+    background: linear-gradient(135deg, #FFE033 0%, #FFB703 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 32px -4px rgba(245, 158, 11, 0.6);
+}
+
+.btn-book:active {
+    transform: translateY(0);
+}
+
+/* Ticket Receipt */
+.ticket-modal {
+    background: #FFFFFF;
+    border: 2px solid var(--runway-gold);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(245, 158, 11, 0.15);
+    margin-top: 16px;
+    display: none;
+}
+
+.ticket-code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: var(--text-primary);
+    background: #FEF3C7;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    margin: 12px 0;
+    border: 1px dashed #F59E0B;
+}

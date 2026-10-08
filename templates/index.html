@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aeropull | Indore Airport Mobility</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <h1 class="app-title">Aeropull</h1>
+            <p class="app-subtitle">Devi Ahilya Bai Holkar Airport • Split fare instantly</p>
+        </header>
+
+        <!-- Role Selection Toggle -->
+        <div class="ap-card" id="role-selection-card" style="text-align: center;">
+            <h3 style="margin-top: 0; margin-bottom: 5px; color: #0F172A; font-size: 1.1rem;">Select Your Aeropull Role
+            </h3>
+            <p style="font-size: 0.85rem; color: #64748B; margin-bottom: 15px;">Choose your portal to continue</p>
+            <div style="display: flex; gap: 10px; justify-content: center;">
+                <button type="button" id="btn-login-customer" class="btn-book"
+                    style="background: #0284C7; flex: 1; padding: 12px; font-size: 0.9rem;">👤 Login as
+                    Customer</button>
+                <button type="button" id="btn-login-driver" class="btn-book"
+                    style="background: #F59E0B; color: #0F172A; flex: 1; padding: 12px; font-size: 0.9rem;">🚘 Login as
+                    Driver</button>
+            </div>
+        </div>
+
+        <!-- CUSTOMER SIGNUP PORTAL (Hidden by default) -->
+        <div id="customer-signup-flow" style="display: none;">
+            <div class="ap-card">
+                <div class="card-header">
+                    <div class="header-icon">📝</div>
+                    <span>Customer Registration</span>
+                </div>
+                <form id="customer-signup-form">
+                    <div class="form-group" style="margin-bottom: 12px;">
+                        <label for="cust-name">Full Name</label>
+                        <input type="text" id="cust-name" placeholder="e.g. Dev Krishna Sahu" required
+                            style="width: 100%; padding: 10px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 0.9rem;" />
+                    </div>
+                    <div class="form-group" style="margin-bottom: 12px;">
+                        <label for="cust-phone">Mobile Number</label>
+                        <input type="tel" id="cust-phone" placeholder="e.g. +91 98765 43210" required
+                            style="width: 100%; padding: 10px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 0.9rem;" />
+                    </div>
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label for="cust-email">Email Address</label>
+                        <input type="email" id="cust-email" placeholder="e.g. dev@example.com" required
+                            style="width: 100%; padding: 10px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 0.9rem;" />
+                    </div>
+                    <button type="submit" class="btn-book" style="width: 100%; background: #0284C7;">Continue to Booking
+                        🚀</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- DRIVER SIGNUP PORTAL (Hidden by default) -->
+        <div id="driver-signup-flow" style="display: none;">
+            <div class="ap-card">
+                <div class="card-header">
+                    <div class="header-icon">📋</div>
+                    <span>Driver Partner Registration</span>
+                </div>
+                <form id="driver-signup-form">
+                    <div class="form-group" style="margin-bottom: 12px;">
+                        <label for="drv-name">Full Name</label>
+                        <input type="text" id="drv-name" placeholder="e.g. Manoj Sahu" required
+                            style="width: 100%; padding: 10px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 0.9rem;" />
+                    </div>
+                    <div class="form-group" style="margin-bottom: 12px;">
+                        <label for="drv-vehicle">Vehicle Model & Number</label>
+                        <input type="text" id="drv-vehicle" placeholder="e.g. Dzire (MP-09-AB-1234)" required
+                            style="width: 100%; padding: 10px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 0.9rem;" />
+                    </div>
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label for="drv-license">Driving License Number</label>
+                        <input type="text" id="drv-license" placeholder="e.g. MP09 20230001234" required
+                            style="width: 100%; padding: 10px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 0.9rem;" />
+                    </div>
+                    <button type="submit" class="btn-book"
+                        style="width: 100%; background: #F59E0B; color: #0F172A;">Register & Start Verification
+                        🚙</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- CUSTOMER BOOKING FLOW (Hidden by default) -->
+        <div id="customer-flow" style="display: none;">
+            <!-- Card 1: Flight Details -->
+            <div class="ap-card">
+                <div class="card-header">
+                    <div class="header-icon">🛫</div>
+                    <span>Flight & Terminal Info</span>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="flight-number">Flight Number</label>
+                        <input type="text" id="flight-number" placeholder="e.g. 6E-642" />
+                    </div>
+                    <div class="form-group">
+                        <label for="terminal">Airport Terminal</label>
+                        <select id="terminal">
+                            <option>Indore Airport - Main Terminal (IDR)</option>
+                            <option>VIP Arrival Gate</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Destination Search & Baggage Scanner -->
+            <div class="ap-card">
+                <div class="card-header">
+                    <div class="header-icon">📍</div>
+                    <span>Indore Destination & Baggage Scanner</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="dropoff-zone">Search Indore Drop-off Location</label>
+                    <input type="text" id="dropoff-zone" list="indore-locations"
+                        placeholder="Type location (e.g. Vijay Nagar, Palasia...)"
+                        style="width: 100%; padding: 10px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 0.9rem;" />
+                    <datalist id="indore-locations">
+                        <option value="Vijay Nagar (Square / Scheme 54)">
+                        <option value="New Palasia (Near Treasure Island Mall)">
+                        <option value="Old Palasia">
+                        <option value="AB Road (Super Corridor Junction)">
+                        <option value="Bhawarkua Square">
+                        <option value="Scheme 78 (Part II)">
+                        <option value="Lalbagh Palace Area">
+                        <option value="Sapna Sangeeta Road">
+                        <option value="MR 10 Bypass Junction">
+                        <option value="C21 Mall / Race Course Road">
+                        <option value="Geeta Bhavan Square">
+                        <option value="Rajwada / Central Indore">
+                    </datalist>
+                </div>
+
+                <label>Baggage Tag / Photo Scanner</label>
+                <div class="tab-header">
+                    <button type="button" class="tab-btn active" id="tab-camera-btn">📷 Live Camera</button>
+                    <button type="button" class="tab-btn" id="tab-upload-btn">📁 Upload Image</button>
+                </div>
+
+                <div class="tab-content active" id="tab-camera">
+                    <div class="camera-box"
+                        style="background: #0F172A; height: 150px; border-radius: 8px; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                        <video id="webcam" autoplay playsinline
+                            style="width: 100%; height: 100%; object-fit: cover; display: none;"></video>
+                        <span id="cam-placeholder" style="color: #64748B; font-size: 0.85rem;">Camera Offline</span>
+                    </div>
+                    <div class="cam-controls" style="display: flex; gap: 10px;">
+                        <button type="button" class="btn-book" id="btn-start-cam"
+                            style="background: #E2E8F0; color: #0F172A; padding: 10px; font-size: 0.85rem; flex: 1;">Start
+                            Camera</button>
+                        <button type="button" class="btn-book" id="btn-snap-cam"
+                            style="display: none; background: #0284C7; padding: 10px; font-size: 0.85rem; flex: 1;">Snap
+                            Baggage Photo</button>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="tab-upload" style="display: none;">
+                    <div class="file-dropzone" onclick="document.getElementById('baggage-file').click()"
+                        style="border: 2px dashed #CBD5E1; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; background: #F8FAFC;">
+                        <p style="font-weight: 700; color: #0284C7; margin-bottom: 5px;">📄 Click to Upload Baggage
+                            Photo</p>
+                        <p style="font-size: 0.78rem; color: #64748B; margin: 0;">PNG, JPG, JPEG tags supported</p>
+                        <input type="file" id="baggage-file" accept="image/*" style="display: none;" />
+                    </div>
+                </div>
+
+                <div class="vision-banner" id="vision-banner"
+                    style="display: none; background: #FEF3C7; color: #D97706; padding: 10px; border-radius: 6px; font-size: 0.85rem; margin-top: 15px; font-weight: 600; text-align: center;">
+                    <span id="vision-details">⚡ Processing luggage photo...</span>
+                </div>
+
+                <div class="form-row" style="margin-top: 14px;">
+                    <div class="form-group">
+                        <label for="passengers">Passengers</label>
+                        <select id="passengers">
+                            <option value="1">1 Passenger</option>
+                            <option value="2">2 Passengers</option>
+                            <option value="3">3 Passengers</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="luggage-category">Luggage Category</label>
+                        <input type="text" id="luggage-category" value="Medium (2 Units)" readonly
+                            style="background: #F1F5F9;" />
+                    </div>
+                </div>
+
+                <!-- Dynamic Fare Summary Box -->
+                <div class="fare-box" id="fare-box"
+                    style="margin-top: 15px; padding: 12px; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                    <div class="fare-item">
+                        <div style="font-size: 0.75rem; color: #64748B;">Solo Taxi</div>
+                        <div id="solo-fare" style="color: #94A3B8; text-decoration: line-through; font-weight: 700;">
+                            ₹400</div>
+                    </div>
+                    <div class="fare-item" style="text-align: right;">
+                        <div style="font-size: 0.75rem; color: #64748B;">Your Fare</div>
+                        <div id="pool-fare" style="color: #0284C7; font-size: 1.2rem; font-weight: 800;">₹200</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Ride Preference Toggle -->
+            <div class="ap-card">
+                <div class="card-header">
+                    <div class="header-icon">🚘</div>
+                    <span>Ride Option</span>
+                </div>
+                <div class="toggle-group" style="display: flex; gap: 10px;">
+                    <div class="toggle-option selected" id="toggle-shared"
+                        style="flex: 1; padding: 12px; border: 2px solid #0284C7; background: #F0F9FF; border-radius: 8px; cursor: pointer;">
+                        <div style="font-weight: 700; color: #0F172A; font-size: 0.9rem;">Shared Pool</div>
+                        <div style="font-size: 0.75rem; color: #64748B;">Split fare (~50% savings)</div>
+                    </div>
+                    <div class="toggle-option" id="toggle-private"
+                        style="flex: 1; padding: 12px; border: 1px solid #E2E8F0; background: #fff; border-radius: 8px; cursor: pointer;">
+                        <div style="font-weight: 700; color: #0F172A; font-size: 0.9rem;">Private Direct</div>
+                        <div style="font-size: 0.75rem; color: #64748B;">Direct express ride</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4: Co-Riders Match Radar & Trunk Capacity -->
+            <div class="ap-card">
+                <div class="card-header">
+                    <div class="header-icon">👥</div>
+                    <span>Indore Co-Riders Match Radar</span>
+                </div>
+                <div class="rider-card"
+                    style="padding: 10px; border: 1px solid #E2E8F0; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div style="font-weight: 700; font-size: 0.9rem; color: #0F172A;">Aarav M. & Rohan K.</div>
+                        <div style="font-size: 0.75rem; color: #64748B;">Flight 6E-712 • Arrived 3 min ago</div>
+                    </div>
+                    <div
+                        style="background: #DCFCE7; color: #15803D; font-size: 0.75rem; font-weight: 700; padding: 4px 8px; border-radius: 100px;">
+                        96% Match</div>
+                </div>
+
+                <div class="meter-container" style="margin-top: 15px;">
+                    <div
+                        style="display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 700; color: #64748B; margin-bottom: 5px;">
+                        <span>TRUNK CAPACITY VOLUME</span>
+                        <span style="color: #0284C7;">75% Full (1 Unit Left)</span>
+                    </div>
+                    <div class="meter-bar"
+                        style="background: #E2E8F0; height: 8px; border-radius: 100px; overflow: hidden;">
+                        <div class="meter-fill" style="background: #0284C7; width: 75%; height: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Massive Runway Gold Booking CTA Button -->
+            <button type="button" class="btn-book" id="btn-book" style="margin-top: 10px;">🚕 CONFIRM INDORE
+                POOL</button>
+
+            <!-- Booking Ticket Receipt Modal -->
+            <div class="ticket-modal" id="ticket-modal"
+                style="display: none; margin-top: 20px; padding: 20px; background: #fff; border: 2px solid #0284C7; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <span style="font-weight: 800; color: #0284C7; font-size: 1.1rem;">CAB CONFIRMED</span>
+                    <span
+                        style="background: #DCFCE7; color: #15803D; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 100px;">●
+                        DRIVER EN ROUTE</span>
+                </div>
+                <div style="font-size: 0.85rem; color: #64748B;">Pickup Location</div>
+                <div style="font-weight: 700; color: #0F172A; font-size: 1rem; margin-bottom: 10px;" id="ticket-pickup">
+                    IDR Airport Arrival Gate 2</div>
+
+                <div
+                    style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px dashed #E2E8F0;">
+                    <div><span style="color: #64748B;">ETA:</span> <strong id="ticket-eta">4 mins</strong></div>
+                    <div><span style="color: #64748B;">Cab:</span> <strong>Dzire / Etios (MP-09-AB-4812)</strong></div>
+                </div>
+
+                <div style="font-size: 0.75rem; color: #64748B; text-align: center;">Driver OTP / Share Code:</div>
+                <div class="ticket-code" id="ticket-code"
+                    style="font-size: 1.5rem; font-weight: 800; text-align: center; color: #0F172A; letter-spacing: 2px; margin-top: 5px;">
+                    IDR-4192</div>
+            </div>
+        </div>
+
+        <!-- DRIVER DASHBOARD FLOW (Hidden by default) -->
+        <div id="driver-flow" style="display: none;">
+            <div class="ap-card" style="padding: 25px;">
+                <div class="card-header">
+                    <div class="header-icon">🚘</div>
+                    <span>Indore Driver Daily Compliance Check</span>
+                </div>
+                <p style="color: #64748B; font-size: 0.85rem; margin-bottom: 15px;">Upload or snap verification photos
+                    of your car's interior and exterior to activate your shift.</p>
+
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label for="driver-interior" style="font-weight: 700; font-size: 0.85rem;">Interior Cabin Photo
+                        (Cleanliness & Space)</label>
+                    <input type="file" id="driver-interior" accept="image/*"
+                        style="width: 100%; padding: 8px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 0.85rem; background: #F8FAFC;" />
+                </div>
+
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label for="driver-exterior" style="font-weight: 700; font-size: 0.85rem;">Exterior Vehicle Photo
+                        (Condition & Plate)</label>
+                    <input type="file" id="driver-exterior" accept="image/*"
+                        style="width: 100%; padding: 8px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 0.85rem; background: #F8FAFC;" />
+                </div>
+
+                <button type="button" class="btn-book" id="btn-submit-inspection"
+                    style="width: 100%; background: #0284C7;">Submit Inspection & Start Shift 🚀</button>
+
+                <!-- Driver Success Ticket Modal -->
+                <div id="driver-ticket-modal"
+                    style="display: none; margin-top: 20px; padding: 15px; background: #DCFCE7; border: 1px solid #22C55E; border-radius: 8px; text-align: center;">
+                    <div style="font-weight: 800; color: #15803D; font-size: 1rem; margin-bottom: 5px;">SHIFT ACTIVATED!
+                    </div>
+                    <div style="font-size: 0.85rem; color: #166534;" id="driver-success-msg">Your vehicle compliance log
+                        was approved successfully.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
